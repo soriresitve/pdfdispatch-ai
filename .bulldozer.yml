@@ -1,0 +1,31 @@
+# Automatic merging, performed by policy-bot (its bulldozer part). Copied from soriresitve/pdfdispatch-mcp.
+#
+# Every pull request merges as soon as the checks below have passed, and its branch is deleted afterwards. Approval
+# (.policy.yml) is one of those checks, so a pull request still waits for somebody to approve it, unless it is a
+# non-major dependency update. To stop a pull request merging itself, add the label "do not merge".
+#
+# https://github.com/palantir/bulldozer#configuration
+
+version: 1
+
+merge:
+  # No `trigger` on purpose: everything that passes the checks below merges by itself.
+  ignore:
+    labels:
+    - "do not merge"
+
+  # Nothing outside this list blocks a merge. A check missing here cannot hold one, and a check that never reports
+  # (for example a workflow with a `paths:` filter) holds every merge forever.
+  # The others are the job names in .github/workflows/ci.yml. Renaming a job means changing it here too.
+  required_statuses:
+  - "policy-bot"
+  - "Check"
+
+  method: squash
+  options:
+    squash:
+      # "Title of the pull request (#29)", then the commit subjects beneath it.
+      title: pull_request_title
+      body: summarize_commits
+
+  delete_after_merge: true

@@ -1,0 +1,38 @@
+// Renovate (self-hosted: saas-infra .github/workflows/renovate.yml): dependency updates at any time.
+// https://docs.renovatebot.com/configuration-options/
+//
+// Adapted from pdfdispatch-mcp's. This repo's dependencies: the Claude Code version CI validates with (package.json)
+// and the GitHub Actions in .github/workflows.
+//
+// Renovate only opens pull requests. policy-bot merges every update that is not a major one by itself (.policy.yml,
+// .bulldozer.yml) once CI has passed. Waits for a person: major updates.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended', 'helpers:pinGitHubActionDigests'],
+  timezone: 'Europe/Ljubljana',
+  // A release must be 3 days old: most broken or hijacked releases are pulled within that time.
+  minimumReleaseAge: '3 days',
+  internalChecksFilter: 'strict',
+  // Every update gets the label that lets policy-bot merge it once CI passes (.policy.yml). Majors lose it below.
+  labels: ['dependencies', 'non-major-update'],
+  osvVulnerabilityAlerts: true,
+  vulnerabilityAlerts: {
+    addLabels: ['security'],
+    schedule: ['at any time'],
+    minimumReleaseAge: null,
+  },
+  lockFileMaintenance: {
+    enabled: true,
+  },
+  packageRules: [
+    {
+      matchManagers: ['github-actions'],
+      groupName: 'GitHub Actions',
+    },
+    {
+      description: 'A major update waits for a person',
+      matchUpdateTypes: ['major'],
+      labels: ['dependencies'],
+    },
+  ],
+}

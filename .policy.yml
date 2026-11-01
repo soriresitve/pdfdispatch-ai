@@ -1,0 +1,66 @@
+# Approval policy, enforced by policy-bot (https://policy-bot.sori-resitve.si). Copied from soriresitve/pdfdispatch-mcp.
+#
+# A pull request is approved when one member of the soriresitve organisation says so: through a GitHub review, or by
+# commenting /lgtm or /approve. The author's own approval does not count, except for an admin's comment (below).
+# .bulldozer.yml merges an approved pull request once its checks pass.
+#
+# https://github.com/palantir/policy-bot#designing-policies
+
+policy:
+  approval:
+  - or:
+    - an organisation member has approved
+    - an admin has approved their own pull request
+    - a non-major dependency update
+
+approval_rules:
+  # Non-major updates from Renovate go in on green, with nobody asked to look. The checks in .bulldozer.yml are what
+  # establish they still work here.
+  #
+  # Three conditions, all of which have to hold. Renovate adds the label to every update except a major one
+  # (.github/renovate.json5). The author has to be the Renovate app. And the change has to touch nothing but the files
+  # a dependency update touches, so a pull request that also edits code needs an approval however it is labelled.
+  - name: a non-major dependency update
+    if:
+      has_labels:
+      - "non-major-update"
+      has_author_in:
+        users:
+        - "sori-resitve-renovate[bot]"
+      only_changed_files:
+        paths:
+        - '^package(-lock)?\.json$'
+        - '^\.github/workflows/[^/]+\.ya?ml$'
+    requires:
+      count: 0
+
+  # Anyone in the organisation. One is enough: the point is that somebody other than the author looked.
+  - name: an organisation member has approved
+    requires:
+      count: 1
+      organizations:
+      - "soriresitve"
+    options:
+      methods:
+        # Matching is by substring. Listing these keeps policy-bot's defaults out: with no list, a thumbs-up approves,
+        # and "👍 I will look at this tomorrow" would approve the change it was declining to review.
+        comments:
+        - "/lgtm"
+        - "/approve"
+        github_review: true
+
+  # GitHub will not let authors approve their own pull request through a review, so an admin working alone comments
+  # /lgtm instead. Scoped to admins by permission rather than by name.
+  - name: an admin has approved their own pull request
+    requires:
+      count: 1
+      permissions:
+      - "admin"
+    options:
+      allow_author: true
+      allow_contributor: true
+      methods:
+        comments:
+        - "/lgtm"
+        - "/approve"
+        github_review: true
