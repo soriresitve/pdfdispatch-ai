@@ -1,0 +1,34 @@
+{
+  "name": "pdfdispatch",
+  "displayName": "PDFDispatch",
+  "version": "1.0.0",
+  "description": "Make PDFs from HTML, Markdown, web pages and Office files, merge PDFs and take screenshots, through the hosted PDFDispatch MCP server. Includes a skill with print CSS tips and how to save results.",
+  "author": {
+    "name": "PDFDispatch",
+    "email": "support@pdfdispatch.com",
+    "url": "https://pdfdispatch.com"
+  },
+  "homepage": "https://pdfdispatch.com/ai",
+  "repository": "https://github.com/soriresitve/pdfdispatch-ai",
+  "license": "MIT",
+  "keywords": [
+    "pdf",
+    "html-to-pdf",
+    "markdown",
+    "office",
+    "documents",
+    "mcp"
+  ],
+  "documentationUrl": "https://docs.pdfdispatch.com/mcp/",
+  "privacyPolicyUrl": "https://pdfdispatch.com/privacy",
+  "termsOfServiceUrl": "https://pdfdispatch.com/terms",
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "PDFDispatch API key",
+      "description": "A key from https://pdfdispatch.com/app/keys (starts with pdd_). Make one just for Claude Code, so you can revoke it alone. Stored in your system's secure storage.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

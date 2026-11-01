@@ -1,0 +1,62 @@
+---
+description: How to make PDFs with the PDFDispatch MCP tools (html_to_pdf, markdown_to_pdf, url_to_pdf, office_to_pdf, merge_pdfs, screenshot, upload_file). Use when asked for a PDF, an invoice, report or other printable document, an Office file converted to PDF, or merged PDFs.
+alwaysApply: false
+---
+
+# Making PDFs with PDFDispatch
+
+The PDFDispatch MCP server (`https://mcp.pdfdispatch.com/mcp`) turns HTML, Markdown, web pages and Office files into
+PDFs, merges PDFs and takes screenshots. Every tool that makes a file answers with a download link. Docs:
+https://docs.pdfdispatch.com/mcp/
+
+## Pick the tool
+
+- `html_to_pdf`: anything with a design (invoices, reports, tickets, certificates). Write one complete HTML page with
+  the CSS in a `<style>` element.
+- `markdown_to_pdf`: notes, a README or a plain report. It has a clean built-in style, so no CSS is needed.
+- `url_to_pdf`: a public web page. The server cannot reach `localhost` or private addresses.
+- `office_to_pdf`: Word, Excel, PowerPoint, OpenDocument, RTF and CSV files. Several files with `merge` give one PDF.
+- `merge_pdfs`: two or more PDFs into one, in the order given.
+- `screenshot`: HTML or a web page as an image, to check a layout before making the PDF.
+- `upload_file`: sends a file from this computer to `office_to_pdf` or `merge_pdfs`.
+
+## Write HTML that prints well
+
+- Set the page in CSS: `@page { size: A4; margin: 15mm; }`. The server's defaults are A4 and printed backgrounds.
+- Keep blocks together with `break-inside: avoid` (table rows, cards, signatures). Start a section on a new page with
+  `break-before: page`.
+- The server cannot read files from this computer. Put small images in the HTML as `data:` URLs, or link them from a
+  public `https://` address. Use web-safe fonts, or embed the font as a `data:` URL.
+- For page numbers, pass `footer_html` with elements of the classes `pageNumber` and `totalPages`; they are filled in
+  on every page.
+- For PDF/A, a password or other API options, pass them in `extra_fields` by their API name, for example
+  `{"pdfa": "PDF/A-2b"}`.
+
+## Check the layout when it matters
+
+You cannot see a PDF, but you can see an image. For a layout that must be right (a certificate, a one-page invoice),
+call `screenshot` with the same HTML first, look at it, fix what is off, then make the PDF. Each screenshot counts as
+one PDF on the user's plan, so skip it for simple documents.
+
+## Save the result at once
+
+- Result links work for one hour. Download the file right away:
+  `curl -fsSL -o out/invoice-1042.pdf "<link>"`.
+- Save into the folder the user names. If they name none, use `out/` in the project and create it if needed.
+- Do not paste result links into issues, commits or chats: anyone with a link can download the file during its hour.
+
+## Files on this computer
+
+For `office_to_pdf` and `merge_pdfs`, a local file needs a link first:
+
+1. Call `upload_file` with the file name, extension included (`contract.docx`).
+2. Upload it: `curl -fsS -T contract.docx "<upload_url>"` (the upload link works for 15 minutes).
+3. Pass `file_url` to the next tool. Results of earlier calls are links already and can go in directly.
+
+## Cost and errors
+
+- Each call that makes a file counts as one PDF on the user's plan. Uploads are free, and so are calls that fail.
+- `401`: the key did not reach the server. The user sets or replaces it in the plugin's settings (Claude Code:
+  `/plugin`, then configure PDFDispatch) or in their client's MCP config.
+- Other errors name the API's code and link to its explanation, for example code `42910` (too many requests in a
+  minute: wait and try again). All codes: https://docs.pdfdispatch.com/limits/#errors
