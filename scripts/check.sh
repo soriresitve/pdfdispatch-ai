@@ -15,11 +15,12 @@ git diff --exit-code -- plugins/pdfdispatch/skills cursor ||
 "$claude" plugin validate --strict ./plugins/pdfdispatch
 
 # The plugin's version must change with its files, or users who installed it never get the change. Compared with
-# master on pull requests only.
-if [[ -n ${BASE_REF:-} ]]; then
+# master on pull requests only, once master has the plugin.
+manifest=plugins/pdfdispatch/.claude-plugin/plugin.json
+if [[ -n ${BASE_REF:-} ]] && git cat-file -e "origin/$BASE_REF:$manifest" 2>/dev/null; then
   if ! git diff --quiet "origin/$BASE_REF" -- plugins/pdfdispatch; then
-    old=$(git show "origin/$BASE_REF:plugins/pdfdispatch/.claude-plugin/plugin.json" | node -p 'JSON.parse(require("fs").readFileSync(0)).version')
-    new=$(node -p 'require("./plugins/pdfdispatch/.claude-plugin/plugin.json").version')
+    old=$(git show "origin/$BASE_REF:$manifest" | node -p 'JSON.parse(require("fs").readFileSync(0)).version')
+    new=$(node -p "require('./$manifest').version")
     [[ $old != "$new" ]] || { echo "check: plugins/pdfdispatch changed, raise \"version\" in its plugin.json ($old)" >&2; exit 1; }
   fi
 fi
