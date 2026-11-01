@@ -1,0 +1,16 @@
+{
+  "name": "pdfdispatch",
+  "description": "PDFDispatch for Claude Code: make PDFs from HTML, Markdown, web pages and Office files",
+  "owner": {
+    "name": "PDFDispatch",
+    "email": "support@pdfdispatch.com",
+    "url": "https://pdfdispatch.com"
+  },
+  "plugins": [
+    {
+      "name": "pdfdispatch",
+      "source": "./plugins/pdfdispatch",
+      "description": "The PDFDispatch MCP server and the habits that make good PDFs: print CSS, a screenshot check, results saved to your project"
+    }
+  ]
+}

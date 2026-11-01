@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "pdfdispatch": {
+      "type": "http",
+      "url": "https://mcp.pdfdispatch.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${user_config.api_key}"
+      }
+    }
+  }
+}
