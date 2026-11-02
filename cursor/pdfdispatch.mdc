@@ -1,5 +1,5 @@
 ---
-description: How to make PDFs with the PDFDispatch MCP tools (html_to_pdf, markdown_to_pdf, url_to_pdf, office_to_pdf, merge_pdfs, screenshot, upload_file). Use when asked for a PDF, an invoice, report or other printable document, an Office file converted to PDF, or merged PDFs.
+description: How to make PDFs with the PDFDispatch MCP tools (render_template, html_to_pdf, markdown_to_pdf, url_to_pdf, office_to_pdf, merge_pdfs, screenshot, upload_file). Use when asked for a PDF, an invoice, report or other printable document, an Office file converted to PDF, or merged PDFs.
 alwaysApply: false
 ---
 
@@ -11,8 +11,10 @@ https://docs.pdfdispatch.com/mcp/
 
 ## Pick the tool
 
-- `html_to_pdf`: anything with a design (invoices, reports, tickets, certificates). Write one complete HTML page with
-  the CSS in a `<style>` element.
+- `render_template`: a standard invoice, receipt, certificate or report. Send the data (parties, items with tax
+  rates, recipient, sections), not HTML; totals and tax are computed and the design is built in. Try this first.
+- `html_to_pdf`: anything with a design of its own (tickets, letters, custom invoices). Write one complete HTML page
+  with the CSS in a `<style>` element.
 - `markdown_to_pdf`: notes, a README or a plain report. It has a clean built-in style, so no CSS is needed.
 - `url_to_pdf`: a public web page. The server cannot reach `localhost` or private addresses.
 - `office_to_pdf`: Word, Excel, PowerPoint, OpenDocument, RTF and CSV files. Several files with `merge` give one PDF.
