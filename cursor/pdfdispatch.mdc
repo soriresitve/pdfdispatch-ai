@@ -56,7 +56,8 @@ For `office_to_pdf` and `merge_pdfs`, a local file needs a link first:
 ## Cost and errors
 
 - Each call that makes a file counts as one PDF on the user's plan. Uploads are free, and so are calls that fail.
-- `401`: the key did not reach the server. The user sets or replaces it in the plugin's settings (Claude Code:
-  `/plugin`, then configure PDFDispatch) or in their client's MCP config.
+- `401`: the user is not signed in, the sign-in ran out, or the connection was revoked on the Keys page. They sign in
+  again (Claude Code: `/mcp`, pick the server, Authenticate). With a key in the client's MCP config instead, check that
+  it reaches the server.
 - Other errors name the API's code and link to its explanation, for example code `42910` (too many requests in a
   minute: wait and try again). All codes: https://docs.pdfdispatch.com/limits/#errors
