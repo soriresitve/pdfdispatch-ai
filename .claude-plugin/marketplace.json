@@ -10,7 +10,7 @@
     {
       "name": "pdfdispatch",
       "source": "./plugins/pdfdispatch",
-      "description": "The PDFDispatch MCP server and the habits that make good PDFs: print CSS, a screenshot check, results saved to your project"
+      "description": "The PDFDispatch MCP server (sign in at pdfdispatch.com, no key to copy) and the habits that make good PDFs: print CSS, a screenshot check, results saved to your project"
     }
   ]
 }
