@@ -49,7 +49,9 @@ assistant's instructions (`AGENTS.md`, `CLAUDE.md`, a system prompt), and add th
 - The guidance lives in `rules/pdf-documents.md`. After editing it, run `scripts/sync-rules.sh`, which writes the
   Claude Code skill and the Cursor rule from it.
 - Raise `version` in `plugins/pdfdispatch/.claude-plugin/plugin.json` with every change to the plugin, or people who
-  installed it never get the change.
+  installed it never get the change. Versions are CalVer, `YYYY.M.N` as in our other repos: the year, the month (no
+  leading zero) and the number of the change in that month, from 0 (`2026.11.0`, then `2026.11.1`; in December
+  `2026.12.0`). The first release was `1.0.0` (1 Nov 2026).
 - Check: `npm ci && scripts/check.sh` (CI runs the same). Pull requests merge through policy-bot (`.policy.yml`,
   `.bulldozer.yml`).
 

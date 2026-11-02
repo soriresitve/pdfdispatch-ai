@@ -1,7 +1,7 @@
 {
   "name": "pdfdispatch",
   "displayName": "PDFDispatch",
-  "version": "2.0.0",
+  "version": "2026.11.0",
   "description": "Make PDFs from HTML, Markdown, web pages and Office files, merge PDFs and take screenshots, through the hosted PDFDispatch MCP server. You sign in at pdfdispatch.com: no key to copy. Includes a skill with print CSS tips and how to save results.",
   "author": {
     "name": "PDFDispatch",
