@@ -2,6 +2,6 @@
   "private": true,
   "description": "Only for CI: the Claude Code version that validates the marketplace and the plugin (scripts/check.sh).",
   "devDependencies": {
-    "@anthropic-ai/claude-code": "2.1.318"
+    "@anthropic-ai/claude-code": "2.1.319"
   }
 }
