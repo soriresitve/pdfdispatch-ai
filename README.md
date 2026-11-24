@@ -1,5 +1,7 @@
 # PDFDispatch for AI assistants
 
+[![PDFDispatch MCP connector](https://glama.ai/mcp/connectors/com.pdfdispatch/mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.pdfdispatch/mcp)
+
 Make PDFs from HTML, Markdown, web pages and Word, Excel or PowerPoint files, merge PDFs and take screenshots, from
 your AI assistant. This repository has the [Claude Code](https://code.claude.com) plugin and a rule file for
 [Cursor](https://cursor.com). Both use the hosted [PDFDispatch MCP server](https://docs.pdfdispatch.com/mcp/) with
